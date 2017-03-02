@@ -1,0 +1,8 @@
+scss/normalize.scss linguist-vendored
+scss/flatpick.scss linguist-vendored
+scss/flex.scss linguist-vendored
+scss/todo-mvc.scss linguist-vendored
+js/vendor/* linguist-vendored
+js/plugins.js linguist-vendored
+js/plugins.min.js linguist-vendored
+*.md linguist-documentation
