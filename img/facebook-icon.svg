@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="14px" height="29px" viewBox="0 0 14 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.1 (29687) - http://www.bohemiancoding.com/sketch -->
+    <title>facebook-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Google-Button" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Google-Sign-in-example" transform="translate(-69.000000, -383.000000)" fill="#FFFFFF">
+            <g id="Rectangle-43-+-Sign-in-with-Google-+-Shape-Copy-2" transform="translate(56.000000, 372.000000)">
+                <path d="M13.1919442,20.4807476 L13.1919442,25.4379175 L16.2287791,25.4379175 L16.2287791,40 L22.0685485,40 L22.0685485,25.3759757 L26.142767,25.3759757 L26.5765,20.4807476 L22.0685485,20.4807476 L22.0685485,17.6923131 C22.0685485,16.538085 22.3009709,16.0811238 23.4162743,16.0811238 L26.5764296,16.0811238 L26.5764296,11 L22.5332524,11 C18.1878981,11 16.2287791,12.913085 16.2287791,16.5769393 L16.2287791,20.4807476 L13.1919442,20.4807476 Z" id="facebook-icon"></path>
+            </g>
+        </g>
+    </g>
+</svg>

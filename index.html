@@ -1,0 +1,164 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>My Fridge</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+  </head>
+  <body>
+    <header class="top-bar">
+      <b><span class="user-name">My</span> Fridge</b>
+      <div class="shopping-list todo-btn">
+        <span class="p-btn">Shopping List</span>
+      </div>
+      <nav class="top-nav">
+        <ul class="nav-items">
+          <li class="selected">Fridge</li>
+          <li>Freezer</li>
+        </ul>
+      </nav>
+    </header>
+    <div class="add-item">
+      <img src="img/add-gray.svg">Add an item to <span>fridge</span>
+    </div>
+    <section class="item-list">
+      <!-- <section class="food-item">
+        <section class="item-img" style="background-image: url(img/banana.jpg);">
+        </section>
+        <section class="item-desc">
+          <span class="item-name">Banana</span>
+          <span class="item-quantity">5 pcs</span>
+          <span class="added-date">Added at 2/15/2017</span>
+          <span class="exp-date">Expires at 2/22/2017</span>
+        </section>
+      </section>
+      <section class="food-item">
+        <section class="item-img" style="background-image: url(img/red-pepper.jpg);">
+        </section>
+        <section class="item-desc">
+          <span class="item-name">고춧가루</span>
+          <span class="item-quantity">1봉지</span>
+          <span class="added-date">Added at 2/15/2017</span>
+          <span class="exp-date">Expires at 2/22/2017</span>
+        </section>
+      </section> -->
+    </section>
+    <section class="loading-anim">
+      <img src="img/loading.gif">
+    </section>
+    <section class="overlay">
+      <section class="adding-item">
+        <h1>Add an item</h1>
+        <div class="editing-fields">
+          <div class="photo">
+            <label class="photo-file">
+              <input type="file" id="i-image" name="i-image" accept="image/*" placeholder="">
+              <img src="img/_.png">
+            </label>
+          </div>
+          <div class="fields">
+            <div class="field-label">
+              Item name<span class="req">*</span>
+              <input type="text" id="i-name" name="i-name" placeholder="Item name">
+            </div>
+            <div class="field-label">
+              Quantity
+              <input type="text" id="i-quantity" name="i-quantity" placeholder="Quantity">
+            </div>
+            <div class="field-label">
+              Added Date<span class="req">*</span>
+              <input type="text" id="i-date" name="i-date" placeholder="">
+            </div>
+            <div class="field-label">
+              Expiration Date (optional)
+              <input type="text" id="i-exp" name="i-exp">
+            </div>
+          </div>
+        </div>
+        <span class="msg">Please enter all required fields!</span>
+        <div id="removeConfirm" class="modal">
+          <div class="remove-msg">
+            Remove this item from <span>fridge</span>?
+            <section class="buttons">
+              <ul class="r-confirm-btns">
+                <li id="y-btn">Yes</li>
+                <li id="n-btn">No</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+        <section class="buttons">
+          <ul class="add-btn-list">
+            <li id="add-btn">Add Item</li>
+            <li id="cancel-btn">Cancel</li>
+          </ul>
+          <ul class="edit-btn-list">
+            <li id="save-btn">Save</li>
+            <li id="remove-btn">Remove</li>
+            <li id="abort-btn">Cancel</li>
+          </ul>
+        </section>
+      </section>
+    </section>
+    <section class="todo-panel">
+      <h1>My shopping list</h1>
+      <span class="close-panel"></span>
+      <section class="listapp">
+  			<header class="header">
+  				<input class="new-todo" placeholder="Add an item to list" autofocus>
+  			</header>
+  			<section class="main-list">
+  				<input class="toggle-all" type="checkbox">
+  				<label for="toggle-all">Mark all as complete</label>
+  				<ul class="todo-list">
+  				</ul>
+  			</section>
+  			<footer class="shoplist">
+  				<span class="list-count"><strong>0</strong> item left</span>
+  				<button class="clear-completed">Clear checked items</button>
+  			</footer>
+  		</section>
+
+
+    </section>
+    <footer class="main-footer">Copyright &copy;<span class="year">2017</span> <a href="mailto:bumhan.yu@gmail.com">Bumhan Yu</a>
+      <span class="logout-btn">Logout</span>
+
+    </footer>
+    <section class="login-screen">
+      <video id="bg-video" class="video" autoplay="autoplay" loop="loop" muted="" width="100%" height="100%">
+        <source src="img/fr-bg.mp4" type="video/mp4" />
+        <source src="img/fr-bg.webm" type="video/webm" />
+      </video>
+      <div>
+        <img src="img/landing.svg">
+        Stay on top of what's in your fridge. Wherever you are, whenever it is.
+        <span id="fb" class="login-btn">Sign in with Facebook</span>
+        <span id="google" class="login-btn">Sign in with Google</span>
+      </div>
+  <!-- /video -->
+    </section>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/plugins.min.js"></script>
+    <script src="js/vendor/underscore-min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+    </script>
+  </body>
+</html>
