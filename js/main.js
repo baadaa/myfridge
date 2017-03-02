@@ -279,7 +279,7 @@ $(document).ready(function() {
       firebase.auth().signOut();
     },
     touchStart: function(e) {
-      e.preventDefault();
+      // e.preventDefault();
       this.UI.touchPoint = e.originalEvent.touches[0].pageX; // point where touch begins
     },
     cancelSwipe: function (id) {
@@ -317,7 +317,7 @@ $(document).ready(function() {
           } else {
             this.editItem(e);
           }
-      } else if (this.UI.touchPoint - currentP > 50) { // detect swipe left bigger than 50 pixels
+      } else if (this.UI.touchPoint - currentP > 100) { // detect swipe left bigger than 50 pixels
         var item = $(e.target).closest('section.food-item');
         if (!$(item).attr('data-swipe')) {
           $(item).attr('data-swipe', 'true');
