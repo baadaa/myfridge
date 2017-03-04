@@ -36,6 +36,24 @@ html,body {
 }
 
 .top-bar {
+  .user-info {
+    position: absolute;
+    width: 1.8rem;
+    height: 1.8rem;
+    top: .5rem;
+    left: 0.8rem;
+    border-radius: 10px;
+    img {
+      width: 1.8rem;
+      border-radius: 10px;
+    }
+    @media screen and (min-width: 600px) {
+      top: 1.1rem;
+    }
+  }
+  .user-name {
+    font-size: 0.7rem;
+  }
   box-sizing: border-box;
   text-shadow: 0 0 3px rgba(0,0,0,.3);
   position: fixed;
@@ -59,9 +77,6 @@ html,body {
     font-size: 0.7rem;
     line-height: 0.7rem;
     margin-left: 0.6rem;
-  }
-  span.user-name {
-
   }
   .shopping-list {
     cursor: pointer;
@@ -164,9 +179,9 @@ html,body {
   }
   ul {
     @include flexbox;
-    @include justify-content(space-between);
+    @include justify-content(space-around);
     font-weight: 700;
-    width: 65%;
+    width: 90%;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -176,8 +191,9 @@ html,body {
     text-transform: uppercase;
     li {
       box-sizing: border-box;
-      @include flex(0, 1, 115px);
+      @include flex(1, 1, 135px);
       padding: 0.6rem;
+      margin: 0 0.5rem;
       text-align: center;
       background:$berry;
       border-radius: 8px;
@@ -363,6 +379,11 @@ footer.main-footer {
     // border: #FFF 1px solid;
     width: 300px;
     height: 380px;
+
+    @media screen and (min-width: 600px) {
+      width: 600px;
+      height: 445px;
+    }
     h1 {
       color:#FFF;
       font-size: 1.2rem;
@@ -414,6 +435,7 @@ footer.main-footer {
       font-weight: 300;
       width: 300px;
       height: 240px;
+
       .photo {
         @include flexbox;
         @include justify-content(center);
@@ -427,6 +449,8 @@ footer.main-footer {
           repeat: no-repeat;
           color: #FFF;
         }
+
+
         width: 85px;
         height: 85px;
         border-radius: 7px;
@@ -437,6 +461,10 @@ footer.main-footer {
         .photo-file {
           img {
             padding: 2rem 1.6rem;
+            @media screen and (min-width: 600px) {
+              width: 200px;
+              height: 200px;
+            }
           }
           cursor: pointer;
         }
@@ -478,6 +506,40 @@ footer.main-footer {
           }
         }
       }
+      @media screen and (min-width: 600px) {
+        width: 600px;
+        height: 325px;
+        .photo {
+          width: 290px;
+          height: 290px;
+          border-radius: 15px;
+          background: {
+            image: url('../img/add-photo.svg');
+            position: center;
+            repeat: no-repeat;
+            size: 60px;
+          }
+        }
+        .fields {
+          width: 290px;
+          height: 300px;
+          .field-label {
+            font-size: 0.7rem;
+            width: 290px;
+            border-radius: 10px;
+            height: 58px;
+            margin-bottom: 1.2rem;
+            input {
+              margin-top: -1.2rem;
+              margin-left: -1rem;
+              width: 290px;
+              height: 58px;
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+
     }
     .buttons{
       ul {
@@ -507,11 +569,19 @@ footer.main-footer {
         &.add-btn-list {
           li {
             @include flex(0, 0, 145px);
+            @media screen and (min-width: 600px) {
+              @include flex(0, 0, 290px);
+              padding: 0.8rem;
+            }
           }
         }
         &.edit-btn-list {
           li {
             @include flex(0, 0, 93px);
+            @media screen and (min-width: 600px) {
+              @include flex(0, 0, 190px);
+              padding: 0.8rem;
+            }
           }
         }
         &.r-confirm-btns {

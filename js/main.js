@@ -15,7 +15,8 @@ $(document).ready(function() {
     fridge: '',
     freezer: '',
     list: '',
-    name: ''
+    name: '',
+    photo: ''
   };
 
   var firebaseAuth = firebase.auth(); // authentication object
@@ -30,6 +31,8 @@ $(document).ready(function() {
       USER.freezer = db.ref("users/" + user.uid + "/freezer");
       USER.list = db.ref("users/" + user.uid + "/list");
       USER.name = user.displayName;
+      USER.data = user; // NOTE: for debugging. to remove.
+      USER.photo = user.photoURL;
       FridgeApp.init();
       TodoApp.init();
 		} else { // user is not logged in
@@ -237,7 +240,11 @@ $(document).ready(function() {
       $('input[name="i-date"]').attr('placeholder', this.formatDate(this.UI.today)); // today's date as placeholder
       $('#removeConfirm').hide();
       this.bindEvents();
-      $('.user-name').text(USER.name + "'s");
+      $('.user-photo img').attr('src', USER.photo);
+      // $('.user-name').text(USER.name);
+      // console.log(USER.photo);
+      // console.log(USER.data);
+
       // console.log('launch app', 'slideOpen:', this.UI.slideOpen);
 
     },
@@ -253,6 +260,7 @@ $(document).ready(function() {
     bindEvents: function() {
 
       $('ul.nav-items').on('touch click', 'li', this.toggleNav.bind(this));
+      $(document).on('keydown', this.checkForEscape.bind(this));
       $('.add-item').on('touch click', this.addItem.bind(this));
       $('#add-btn').on('touch click', this.registerNew.bind(this));
       $('#save-btn').on('touch click', this.updateItem.bind(this));
@@ -274,13 +282,27 @@ $(document).ready(function() {
       USER.freezer.on('value', this.render.bind(this));
       USER.fridge.on('value', this.render.bind(this));
     },
+    checkForEscape: function(e) {
+      if (e.which === 27) {
+        if (this.UI.slideOpen) {
+          // Shopping list panel is open. Cancel new item input.
+          $('.new-todo').val("");
+        } else if (this.UI.currentView === 'listView') {
+          // do nothing on default view
+        } else if (($('input[name="i-exp"]')[0]._flatpickr.isOpen) || ($('input[name="i-date"]')[0]._flatpickr.isOpen)) {
+          // Calendar is open. Flatpickr will take care of this case
+        } else {
+          this.setView('listView');
+        }
+      }
+    },
     signOut: function(){
       // console.log('signout');
       firebase.auth().signOut();
     },
     touchStart: function(e) {
       // e.preventDefault();
-      this.UI.touchPoint = e.originalEvent.touches[0].pageX; // point where touch begins
+      this.UI.touchPoint = {x: e.originalEvent.touches[0].pageX, y: e.originalEvent.touches[0].pageY }; // point where touch begins
     },
     cancelSwipe: function (id) {
       var item = _.findWhere(this.UI.swiped, {id: id});
@@ -306,8 +328,8 @@ $(document).ready(function() {
     },
     touchEnd: function(e) {
       e.preventDefault();
-      var currentP = e.originalEvent.changedTouches[0].pageX; // point where touch ends
-      if (this.UI.touchPoint === currentP) {
+      var currentP = {x: e.originalEvent.changedTouches[0].pageX, y: e.originalEvent.changedTouches[0].pageY }; // point where touch ends
+      if ((this.UI.touchPoint.x === currentP.x) && (this.UI.touchPoint.y === currentP.y)){
         var btn = $(e.target).closest('li').attr('id');
         var id = $(e.target).closest('section').attr('data-id');
           if (btn==='swipe-y') {
@@ -317,7 +339,7 @@ $(document).ready(function() {
           } else {
             this.editItem(e);
           }
-      } else if (this.UI.touchPoint - currentP > 100) { // detect swipe left bigger than 50 pixels
+      } else if (this.UI.touchPoint.x - currentP.x > 100) { // detect swipe left bigger than 50 pixels
         var item = $(e.target).closest('section.food-item');
         if (!$(item).attr('data-swipe')) {
           $(item).attr('data-swipe', 'true');
@@ -410,6 +432,8 @@ $(document).ready(function() {
       }
     },
     updateItem: function(){
+      console.log($('input[name="i-exp"]'));
+      debugger;
       var updated = this.getItemInfo("existing");
       if (this.requiredFieldsComplete(updated.img, updated.name, updated.added)) {
         USER[this.UI.currentArea].child(this.UI.currentEdit).update(updated);
@@ -417,7 +441,6 @@ $(document).ready(function() {
         this.resetInputFields();
       } else {
         $('.msg').show();
-        // TODO: highlight incomplete fields
       }
     },
     showRemoveModal: function(item) {
@@ -440,15 +463,6 @@ $(document).ready(function() {
       $('input[name="i-quantity"]').val(item.qty);
       $('input[name="i-date"]').flatpickr(this.UI.dateConfig.edit(item.added));
       $('input[name="i-exp"]').flatpickr(this.UI.dateConfig.edit(item.exp));
-    },
-    checkEscape: function(e) {
-      if (e.which === 27) {
-        console.log(this.UI.currentView);
-        // TODO: Check if any calendar is open. If so, close calendar but not the overlay
-        if (this.UI.currentView !== 'listView') {
-          this.setView('listView');
-        }
-      }
     },
     render: function(response) {
       var responseVal = response.val();
@@ -555,7 +569,7 @@ $(document).ready(function() {
     },
     registerNew: function() {
       var newItem = this.getItemInfo('new');
-      if (this.requiredFieldsComplete(newItem.img, newItem.name, newItem.added)) {
+      if (this.requiredFieldsComplete(newItem.img, newItem.name, newItem.added, newItem.exp)) {
         var htmlString = Utils.itemMarkup(newItem.img, newItem.name, newItem.qty, newItem.added, newItem.exp);
         $('section.item-list').append(htmlString);
         USER[this.UI.currentArea].push(newItem);
@@ -566,13 +580,13 @@ $(document).ready(function() {
         // TODO: highlight incomplete fields
       }
     },
-    requiredFieldsComplete: function(img, name, date) {
+    requiredFieldsComplete: function(img, name, date, exp) {
       if ((name === '') && (img === '../img/food.svg')) {
         this.highlightFields('name');
         return false;
       }
 
-      if (date === "") {
+      if ((date === '') && (exp === '')) {
         this.highlightFields('date');
         return false;
       } else {
@@ -583,11 +597,11 @@ $(document).ready(function() {
       switch (field) {
         case 'name':
           $('#i-name, .photo').css('box-shadow', '0px 0px 10px 5px #F2AF00');
-          $('span.msg').html("Please provide a photo <i>or</i> a name!");
+          $('span.msg').html("Please provide <i>a photo</i> or <i>a name</i>!");
           break;
         case 'date':
-          $('#i-date').closest('div').css('box-shadow', '0px 0px 10px 5px #F2AF00');
-          $('span.msg').text("Please enter added date");
+          $('#i-date, #i-exp').closest('div').css('box-shadow', '0px 0px 10px 5px #F2AF00');
+          $('span.msg').html("Please enter <i>added date</i> or <i>expiration date</i>!");
           break;
         default:
           break;
@@ -595,7 +609,7 @@ $(document).ready(function() {
     },
     unhighlightFields: function() {
       $('#i-name, .photo').css('box-shadow', 'none');
-      $('#i-date').closest('div').css('box-shadow', 'none');
+      $('#i-date, #i-exp').closest('div').css('box-shadow', 'none');
       $('.msg').hide();
     },
     cancelOverlay: function() {
@@ -654,6 +668,7 @@ $(document).ready(function() {
     },
     bindEvents: function() {
       $('input.new-todo').on('keydown', this.checkForEnter.bind(this));
+
       $('.todo-list').on('touch click', 'li .view .toggle', this.toggleTodo.bind(this));
       $('.todo-list').on('touch click', 'li .view .destroy', this.removeTodo.bind(this));
       $('.main-list').on('touch click', '.toggle-all', this.toggleAll.bind(this));
