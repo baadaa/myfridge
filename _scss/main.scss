@@ -729,6 +729,17 @@ footer.main-footer {
 
 @import 'flatpick.scss';
 @import 'todo-mvc.scss';
+
+div.add-todo-btn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  background-image: url('../img/add-to-list.svg');
+  cursor: pointer;
+}
+
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301

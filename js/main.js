@@ -667,6 +667,7 @@ $(document).ready(function() {
     },
     bindEvents: function() {
       $('input.new-todo').on('keydown', this.checkForEnter.bind(this));
+      $('.add-todo-btn').on('touch click', this.checkVal.bind(this));
 
       $('.todo-list').on('touch click', 'li .view .toggle', this.toggleTodo.bind(this));
       $('.todo-list').on('touch click', 'li .view .destroy', this.removeTodo.bind(this));
@@ -706,12 +707,15 @@ $(document).ready(function() {
     },
     checkForEnter: function(e) {
       if (e.which === 13) {
-        var enteredValue = $('.new-todo').val().trim();
-        $('.new-todo').val("");
+        this.checkVal();
+      }
+    },
+    checkVal: function() {
+      var enteredValue = $('.new-todo').val().trim();
+      $('.new-todo').val("");
 
-        if (enteredValue !== "") {
-          this.createToDo(enteredValue);
-        }
+      if (enteredValue !== "") {
+        this.createToDo(enteredValue);
       }
     },
     createToDo: function(todo) {
