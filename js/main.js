@@ -433,7 +433,6 @@ $(document).ready(function() {
     },
     updateItem: function(){
       console.log($('input[name="i-exp"]'));
-      debugger;
       var updated = this.getItemInfo("existing");
       if (this.requiredFieldsComplete(updated.img, updated.name, updated.added)) {
         USER[this.UI.currentArea].child(this.UI.currentEdit).update(updated);
