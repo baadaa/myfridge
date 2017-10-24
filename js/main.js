@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyBYjvjsGuAPDEfbIri0qDOeOUdAmYh4UCE",
+    apiKey: "AIzaSyBYjvjsGuAPDEfbIri0qDOeOUdAmYh4UCE", // NOTE: referrer restriction
     authDomain: "my-fridge-app.firebaseapp.com",
     databaseURL: "https://my-fridge-app.firebaseio.com",
     storageBucket: "my-fridge-app.appspot.com",
