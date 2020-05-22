@@ -1,3 +1,9 @@
+# THIS REPO ISN'T MAINTAINED
+
+Checkout the newer, completely rewritten app at https://github.com/baadaa/remember-fridge-react 
+
+---
+
 ### Better manage food inventory in refrigerator and keep track of fresh items.
 
 - **Languages**: JavaScript, HTML/(S)CSS
